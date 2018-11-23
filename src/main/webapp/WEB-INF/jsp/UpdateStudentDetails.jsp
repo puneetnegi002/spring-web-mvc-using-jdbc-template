@@ -6,7 +6,7 @@
   Time: 5:59 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Update Student Details</title>
@@ -18,34 +18,37 @@
 </head>
 <body>
 <div class="container">
-    <center>
-        <h2><b><u>Update Student Details</u></b></h2>
-        <form:form method="post" action="/updatestudent">
-            <table class="table table-hover">
-                <tr>
-                    <td><b>Student id:</b></td>
-                    <td><form:input path="id" readonly="true"/></td>
-                </tr>
-                <tr>
-                    <td><b>Student Name:</b></td>
-                    <td><form:input path="name"/></td>
-                </tr>
+    <code>
+        <center>
+            <h2><b><u>Update Student Details</u></b></h2>
+            <form:form method="post" action="/updatestudent">
+                <table class="table table-hover">
+                    <tr>
+                        <td><b>Student id:</b></td>
+                        <td><form:input path="id" readonly="true"/></td>
+                    </tr>
+                    <tr>
+                        <td><b>Student Name:</b></td>
+                        <td><form:input path="name"/></td>
+                    </tr>
 
-                <tr>
-                    <td><b>Student Age :</b></td>
-                    <td><form:input path="age"/></td>
-                    <td><form:errors title="gdf"/></td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="submit" value="Update" style="height: 40px;width: 200px;"/>
-                    </td>
-                </tr>
+                    <tr>
+                        <td><b>Student Age :</b></td>
+                        <td><form:input path="age"/></td>
+                        <td><form:errors title="gdf"/></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="submit" value="Update" class="btn btn-success"
+                                   style="height: 40px;width: 200px;"/>
+                        </td>
+                    </tr>
 
-            </table>
-        </form:form>
+                </table>
+            </form:form>
 
-    </center>
+        </center>
+    </code>
 </div>
 </body>
 </html>

@@ -1,7 +1,8 @@
 
 package com.decipherzone.studentWebSpringmvc.dao;
 
-import com.decipherzone.studentWebSpringmvc.beans.Student;
+import com.decipherzone.studentWebSpringmvc.Model.Student;
+import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,12 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @purpose - This class Process all the queries of database.
+ * This class Process all the queries of database.
  */
 
-public class Studentdao {
+public class Studentdao implements StudentdaoInterface {
 
-
+    private final static Logger logger = Logger.getLogger(Studentdao.class);
     private JdbcTemplate jdbcTemplate;
 
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -27,16 +28,16 @@ public class Studentdao {
 
     /**
      * @return list
-     * @purpose - this method fetch all the record from database and return as a list.
+     * @Purpose - this method fetch all the record from database and return as a list.
      * @implnote - getAllEmployees method fetch all the records present in the student table using resultsetExtreactor and
      * return it as a list
      */
-    public List<Student> getAllEmployees() {
+    public List<Student> getAllStudents() {
         return jdbcTemplate.query("select * from student", new ResultSetExtractor<List<Student>>() {
             @Override
             public List<Student> extractData(ResultSet rs) throws SQLException, DataAccessException {
 
-                List<Student> list = new ArrayList<Student>();
+                List<Student> list = new ArrayList<>();
                 while (rs.next()) {
                     Student student = new Student();
                     student.setId(rs.getInt(1));
@@ -50,35 +51,51 @@ public class Studentdao {
     }
 
     /**
-     * @param id
-     * @return
+     * @param id - removeSTudentdetails method receives id as parameter
      * @Purpose - removeStudentDetails method remove the details of student using studentid.
      */
 
-    public int removeStudentdetails(int id) {
+    public void removeStudentdetails(int id) {
+
         String sql = "delete from student where id=" + id + "";
-        return jdbcTemplate.update(sql);
+        logger.info(sql);
+        jdbcTemplate.update(sql);
 
     }
 
     /**
-     * @param student
-     * @return
-     * @purpose - This method update student details such as name and age using student id
+     * @param student - Updatestudentdetailsmethod student object as parameter.
+     * @Purpose - This method update student details such as name and age using student id
      */
-    public int updateStudentdetails(Student student) {
+    public void updateStudentdetails(Student student) {
         String sql = "update student set name='" + student.getName() + "', age=" + student.getAge() + " where id=" + student.getId() + "";
-        return jdbcTemplate.update(sql);
+
+        logger.info(sql);
+
+        jdbcTemplate.update(sql);
     }
 
+    /**
+     * @param id - getEmpByID receives student id as parameter
+     * @return student
+     * @Purpose - This method fetch the record od a student using student id from database
+     */
     public Student getEmpById(int id) {
         String sql = "select * from student where id=?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<Student>(Student.class));
+        logger.info(sql);
+        return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<>(Student.class));
     }
 
-    public int addstudentdetails(Student student) {
+    /**
+     * @param student - this method receives student object as parameter.
+     * @Purpose - This method insert the records of a student into the database.\
+     * records are inserted by user.
+     */
+
+    public void addstudentdetails(Student student) {
         String sql = "insert into student(name,age) values('" + student.getName() + "'," + student.getAge() + ")";
-        return jdbcTemplate.update(sql);
+        logger.info(sql);
+        jdbcTemplate.update(sql);
     }
 
 }
