@@ -3,11 +3,15 @@ package com.decipherzone.studentWebSpringmvc.dao;
 
 import com.decipherzone.studentWebSpringmvc.Model.Student;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,15 +20,17 @@ import java.util.List;
 /**
  * This class Process all the queries of database.
  */
+@Repository
+public class StudentDaoImpl implements StudentDao {
 
-public class Studentdao implements StudentdaoInterface {
-
-    private final static Logger logger = Logger.getLogger(Studentdao.class);
+    private final static Logger logger = Logger.getLogger(StudentDaoImpl.class);
     private JdbcTemplate jdbcTemplate;
 
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+    @Autowired
+    public StudentDaoImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+
 
     /**
      * @return list
@@ -57,9 +63,15 @@ public class Studentdao implements StudentdaoInterface {
 
     public void removeStudentdetails(int id) {
 
-        String sql = "delete from student where id=" + id + "";
+        String sql = "delete from student where id=?";
         logger.info(sql);
-        jdbcTemplate.update(sql);
+        jdbcTemplate.execute(sql, new PreparedStatementCallback<Object>() {
+            @Override
+            public Object doInPreparedStatement(PreparedStatement preparedStatement) throws SQLException, DataAccessException {
+                preparedStatement.setInt(1, id);
+                return preparedStatement.execute();
+            }
+        });
 
     }
 
@@ -68,11 +80,19 @@ public class Studentdao implements StudentdaoInterface {
      * @Purpose - This method update student details such as name and age using student id
      */
     public void updateStudentdetails(Student student) {
-        String sql = "update student set name='" + student.getName() + "', age=" + student.getAge() + " where id=" + student.getId() + "";
+        String sql = "update student set name=?, age=? where id=?";
 
         logger.info(sql);
 
-        jdbcTemplate.update(sql);
+        jdbcTemplate.execute(sql, new PreparedStatementCallback<Object>() {
+            @Override
+            public Object doInPreparedStatement(PreparedStatement preparedStatement) throws SQLException, DataAccessException {
+                preparedStatement.setString(1, student.getName());
+                preparedStatement.setInt(2, student.getAge());
+                preparedStatement.setInt(3, student.getId());
+                return preparedStatement.execute();
+            }
+        });
     }
 
     /**
@@ -93,9 +113,18 @@ public class Studentdao implements StudentdaoInterface {
      */
 
     public void addstudentdetails(Student student) {
-        String sql = "insert into student(name,age) values('" + student.getName() + "'," + student.getAge() + ")";
+        String sql = "insert into student(name,age) values(?,?)";
         logger.info(sql);
-        jdbcTemplate.update(sql);
+        jdbcTemplate.execute(sql, new PreparedStatementCallback<Object>() {
+
+            @Override
+            public Object doInPreparedStatement(PreparedStatement preparedStatement) throws SQLException, DataAccessException {
+                preparedStatement.setString(1, student.getName());
+                preparedStatement.setInt(2, student.getAge());
+
+                return preparedStatement.execute();
+            }
+        });
     }
 
 }

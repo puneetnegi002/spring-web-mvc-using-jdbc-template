@@ -18,28 +18,34 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container">
-    <code>
-        <h2>
-            <center><b><u>Add Student Details</u></b></center>
-        </h2>
-        <form:form method="post" action="/save">
-            <table class="table table-hover">
-                <tr>
-                    <td>Name :</td>
-                    <td><form:input path="name"/></td>
-                </tr>
+<div class="container" style="height: 400px">
+    <h2>
+        <center><b><u>Add Student Details</u></b></center>
+    </h2>
+    <form:form method="post" action="/save">
 
-                <tr>
-                    <td>Age :</td>
-                    <td><form:input path="age"/></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><input type="submit" value="Save" class="btn btn-success"/></td>
-                </tr>
-            </table>
-        </form:form>
-    </code>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="name">Name:</label>
+            <div class="col-sm-10">
+                <form:input path="name" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="age">Age :</label>
+            <div class="col-sm-10">
+                <form:input path="age" class="form-control"/>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="submit" value="Save" class="btn btn-success"/>
+            </div>
+        </div>
+    </form:form>
 </div>
 </body>
 </html>

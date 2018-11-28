@@ -12,43 +12,48 @@
     <title>Update Student Details</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container">
-    <code>
-        <center>
-            <h2><b><u>Update Student Details</u></b></h2>
-            <form:form method="post" action="/updatestudent">
-                <table class="table table-hover">
-                    <tr>
-                        <td><b>Student id:</b></td>
-                        <td><form:input path="id" readonly="true"/></td>
-                    </tr>
-                    <tr>
-                        <td><b>Student Name:</b></td>
-                        <td><form:input path="name"/></td>
-                    </tr>
+<div class="container" style="height: 400px">
+    <h2><b><u>Update Student Details</u></b></h2>
+    <form:form method="post" action="/updatestudent">
 
-                    <tr>
-                        <td><b>Student Age :</b></td>
-                        <td><form:input path="age"/></td>
-                        <td><form:errors title="gdf"/></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="submit" value="Update" class="btn btn-success"
-                                   style="height: 40px;width: 200px;"/>
-                        </td>
-                    </tr>
 
-                </table>
-            </form:form>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="id">Student Id :</label>
+            <div class="col-sm-10">
+                <form:input path="id" readonly="true" class="form-control"/>
+            </div>
+        </div>
 
-        </center>
-    </code>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="name">Student Name :</label>
+            <div class="col-sm-10">
+                <form:input path="name" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="age">Student Age :</label>
+            <div class="col-sm-10">
+                <form:input path="age" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="submit" value="Update" class="btn btn-success"
+                       style="height: 40px;width: 200px;"/>
+            </div>
+        </div>
+
+    </form:form>
+
 </div>
 </body>
 </html>

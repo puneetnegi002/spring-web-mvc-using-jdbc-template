@@ -19,7 +19,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container">
+<div class="container" style="height: auto">
     <h2>
         <center><b><u>Student Details</u></b></center>
     </h2>
@@ -39,9 +39,11 @@
                 <td>${student.id}</td>
                 <td>${student.name}</td>
                 <td>${student.age}</td>
-                <td><a href="<c:url value="/remove/${student.id}"/>" class="btn btn-danger" role="button">Delete</a>
+                <td><a href="<c:url value="/remove/${student.id}"/>" class="btn btn-danger" role="button"><span
+                        class="glyphicon glyphicon-trash"></span>Remove</a>
                 </td>
-                <td><a href="<c:url value="/update/${student.id}"/>" class="btn btn-info" role="button">Update</a></td>
+                <td><a href="<c:url value="/update/${student.id}"/>" class="btn btn-info" role="button"><span
+                        class="glyphicon glyphicon-pencil"></span>Edit</a></td>
             </tr>
         </c:forEach>
 

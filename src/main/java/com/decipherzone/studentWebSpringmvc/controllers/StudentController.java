@@ -2,7 +2,7 @@ package com.decipherzone.studentWebSpringmvc.controllers;
 
 
 import com.decipherzone.studentWebSpringmvc.Model.Student;
-import com.decipherzone.studentWebSpringmvc.dao.Studentdao;
+import com.decipherzone.studentWebSpringmvc.dao.StudentDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,8 +17,12 @@ import java.util.List;
 @Controller
 public class StudentController {
 
+    private final StudentDaoImpl studentdao;
+
     @Autowired
-    Studentdao studentdao;
+    public StudentController(StudentDaoImpl studentdao) {
+        this.studentdao = studentdao;
+    }
 
 
     /**
@@ -29,12 +33,16 @@ public class StudentController {
      * The fetched records are put in a list.
      */
     @RequestMapping(value = "/")
-    public ModelAndView viewform() {
+    public ModelAndView viewform(ModelAndView modelAndView) {
         List<Student> list = studentdao.getAllStudents();
         if (list.isEmpty()) {
-            return new ModelAndView("viewform", "message", "No Record Found !!");
+            modelAndView.addObject("message", "no record found !!");
+            modelAndView.setViewName("viewform");
+            return modelAndView;
         } else {
-            return new ModelAndView("viewform", "list", list);
+            modelAndView.addObject("list", list);
+            modelAndView.setViewName("viewform");
+            return modelAndView;
         }
     }
 
